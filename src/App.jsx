@@ -13,13 +13,14 @@ import Pricing from './pages/Pricing';
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
+  const token = null;
 
   useEffect(() => {
     const token = localStorage.getItem('authToken');
     if (token) {
       setIsLoggedIn(true);
     }
-  }, []);
+  }, [token]);
 
   return (
     <Router>

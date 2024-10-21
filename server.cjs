@@ -4,15 +4,31 @@ const express = require('express');
 const cookieParser =require('cookie-parser');
 const userRoutes = require('./routes/userRoutes.cjs');
 const appointmentRoutes = require('./routes/appointmentRoutes.cjs');
+// const verifyToken = require('./routes/userRoutes.cjs')
 
 const app = express();
 app.use(express.json());
 app.use(cookieParser());
 
+const verifyToken = (req, res, next) => {
+  if(req.method === 'OPTIONS') {
+    return next();
+  }
+
+  const authHeader = req.headers['authorization'];
+
+  if(!authHeader) {
+    return res.status(403).send({message:'No token provided'});
+  }
+
+
+}
 app.use('/api/users', userRoutes);
 app.use('/api/appointments', appointmentRoutes);
 
 app.use(express.static(path.join(__dirname, 'dist')));
+
+
 
 app.get('*', (req, res) => {
   res.sendFile(path.resolve(__dirname, 'dist', 'index.html'));

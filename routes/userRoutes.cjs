@@ -5,7 +5,37 @@ const jwt = require('jsonwebtoken');
 const prisma = require('../prisma-client.cjs');
 const router = express.Router();
 
-const JWT_SECRET = process.env.JWT_SECRET || 'supersecretkey';
+const JWT_SECRET = process.env.JWT_SECRET;
+
+// verify user
+const verifyToken = (req, res, next) => {
+  const token = req.header('Authorization');
+  if (!token) return res.status(401).json({ message: 'Access denied' });
+
+  try {
+    const verified = jwt.verify(token, process.env.JWT_SECRET);
+    req.user = verified;
+    next();
+  } catch (err) {
+    res.status(400).json({ message: 'Invalid token' });
+  }
+};
+
+router.get('/validate-token', (req,res)=>{
+  const authHeader = req.headers['authorization'];
+  const token = authHeader && authHeader.split(' ')[1];
+
+  if(!token) {
+    return res.status(401).json({message: 'Token not provided'});
+  }
+
+  try{
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    res.json({user: decoded });
+  } catch(error){
+    return res.status(403).json({message: 'Invalid Token'})
+  }
+})
 
 // Register a new user
 router.post('/register', async (req, res) => {
@@ -31,6 +61,18 @@ try{
 
 // Login a user
 router.post('/login', async (req, res) => {
+  const authHeader = req.headers['authorization'];
+  const hasToken = authHeader.split(' ')[1];
+  if(authHeader && hasToken){
+    jwt.verify(hasToken, process.env.JWT_SECRET, (err, decoded) => {
+      if(err) {
+        return res.status(401).json({message:'Unauthorized'})
+      }
+      res.json({
+
+      })
+    });
+  }
   const { email, password } = req.body;
   try{
     const user = await prisma.user.findUnique({ where: { email } });
@@ -56,4 +98,4 @@ router.post('/login', async (req, res) => {
 });
 
 
-module.exports = router;
+module.exports = {router, verifyToken};

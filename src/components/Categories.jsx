@@ -1,19 +1,16 @@
 import React from 'react';
 
 const categories = [
-  { title: 'After School Activities & Tutoring Services', image: '../src/assets/Tutoring-category.png' },
-  { title: 'Creative Arts', image: '../src/assets/CreativeArts-category.png' },
-  { title: 'Health & Wellness', image: '../src/assets/HealthAndWellness-category.png' },
-  { title: 'Vehicle Maintenence', image: '../src/assets/VehicleMaintenence-category.png' },
-  // { title: 'Adventures & Tours', image: '../assets/' },
-  // { title: 'Animal Services', image: '../assets/cooking.jpg' },
-  // { title: 'Networking Events', image: '../assets/cooking.jpg' },
-  // { title: 'Wine Tasting', image: '../assets/cooking.jpg' },
-  // { title: 'Local Seminars & Classes', image: '../assets/cooking.jpg' },
+  { title: 'After School Activities', image: '../src/assets/categories/AfterSchoolandTutoring.png' },
+  { title: 'Creative Arts', image: '../src/assets/categories/CreativeArts.png' },
+  { title: 'Health & Wellness', image: '../src/assets/categories/HealthandWellness.png' },
+  { title: 'Vehicle Maintenence', image: '../src/assets/categories/vehicleMaintenence.png' }
 ];
 
 const Discover = () => {
   return (
+    <div className="browse-by-category">
+      <h1 className="browse">BROWSE BY CATEGORIES</h1>
     <div className="category-container">
       {categories.map((category, index) => (
         <div key={index} className="category-card">
@@ -21,6 +18,10 @@ const Discover = () => {
           <div className="category-title">{category.title}</div>
         </div>
       ))}
+    </div>
+    <div className="browse-by-category">
+      <h1 className="browse">BROWSE BY DEALS</h1>
+    </div>
     </div>
   );
 };

@@ -32,7 +32,7 @@ router.post('/', verifyToken, async (req, res) => {
   res.json(appointment);
 });
 
-// Get all appointments for the logged-in user
+// Get all current user's appointments
 router.get('/', verifyToken, async (req, res) => {
   const appointments = await prisma.appointment.findMany({
     where: { userId: req.user.id },

@@ -6,51 +6,53 @@
 
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  background-color: #FFF;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
+  margin:0;
+}
+body{
+  margin:0;
 }
 
 header {
-  display: flex;
-  justify-content: space-between;
+  position:sticky;
+  top:0;
+  z-index: 1000;
+  display: grid;
+  grid-template-columns: 1fr 1fr 2fr;
   align-items: center;
   padding: 1vh;
-  background-color:white;
+  background-color:RGBA(255,255,255,1);
   color: navy;
   font-size: 1rem;
-  max-height: 10vh;
+  height: 5rem;
 }
 
 .logo{
+  grid-column: 1;
   display:flex;
-  max-width: 290px;
-  max-height: 10vh;
+  align-items: center;
+  height: 5rem;
   justify-content: flex-start;
 }
 
-.logo > img {
-  margin-right: 1vh;
-  max-width: 100%;
+.home-link > img {
+  margin-right: 20px;
   max-height: 100%;
-  height: auto;
   width: auto;
   object-fit: contain;
-}
-
-.spacer {
-  width: 50%;
-  height: auto;
-  background-color: #FFF;
+  height: 5rem;
 }
 
 .link-box{
+  grid-column: 3;
   display:flex;
-  width: 60%;
+  width: 100%;
   justify-content: space-evenly;
 }
 
@@ -61,30 +63,82 @@ header {
   text-decoration: none;
 }
 
-.logout-link:hover {
-  cursor:pointer;
+.search{
+  display:flex;
+  align-items: center;
+  background-image: linear-gradient(150DEG, #2792A8, #78D65C);;
+  height: 5rem;
+  justify-content: center;
 }
 
 .search-bar {
   position: relative;
   display: flex;
   align-items: center;
-  width: 30%;
+  width:80%;
+  border: none;
+  border-radius: 25px;
+  background: #FFF;
+
 }
+
+.search-city-zip-code-input {
+  border: none;
+  outline: none;
+  border: none;
+  background: none;
+  text-align: center;
+  color: #2792A8;
+}
+
+.search-city-zip-code-input::placeholder {
+  color: #2792A8;
+}
+
+.search-date-input {
+  border: none;
+  padding: 0.7rem;
+  outline: none;
+  border: none;
+  background: none;
+}
+
+.date-placeholder {
+  position: relative;
+  left: 12px;
+  top: 10px;
+  color: #2792A8;
+  font-size: 1rem ;
+  pointer-events: none;
+  transition: all 0.3s ease;
+}
+
+.search-date-input:focus + .date-placeholder,
+.search-date-input:not(:placeholder-shown) + .date-placeholder {
+  display: none;
+}
+
+
 
 .search-input {
   width: 100%;
-  padding: 0.6vh;
+  padding: 0.5rem;
   padding-right: 1.5vh;
-  padding-left: 1.5vh;
-  border: 2px solid #2792A8;
-  border-radius: 25px;
+  padding-left: 3.5vh;
   font-size: 0.9rem;
   outline: none;
+  border: none;
+  background: none;
 }
 
+.search-input::placeholder {
+  color: #2792A8;
+}
+.divider {
+  color:#000;
+}
 .search-button {
-  position: absolute;
+  position: relative;
   right: 1vh;
   background: none;
   border: none;
@@ -106,10 +160,10 @@ header {
 .slideshow-container {
   position: relative;
   max-width: 100%;
-  margin: auto;
+  margin: 0;
   overflow: hidden;
   background:#FFF;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+
 }
 
 .scroll-slides {
@@ -117,7 +171,6 @@ header {
   transition: transform 0.5s ease;
   height: 60vh;
   background-size: contain;
-  /* background-position: center; */
   background-repeat: no-repeat;
 }
 
@@ -220,6 +273,7 @@ header {
   cursor:pointer;
 }
 
+
 .how-it-works-col > img {
   height: 10vh;
   margin-top: 2vh;
@@ -227,20 +281,35 @@ header {
 
 /* Categories */
 
+.browse-by-category {
+  background: linear-gradient(150DEG, #2792A8, #78D65C);
+}
+
+.browse {
+  padding-top:20px;
+  font-size: 1.5rem;
+  margin-top:0;
+  margin-bottom: 0;
+  margin-left:10px;
+  padding-left:20px;
+  display:flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
 .category-container {
   display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
-  justify-content: space-around;
-  padding: 20px;
+  margin: 0 10px;
+  padding: 0 20px;
+  overflow-x:hidden;
 }
 
 
 .category-card {
   position: relative;
-  width: 250px;
-  height: 300px;
-  overflow: hidden;
+  margin: 10px;
+  min-width: 300px;
+  height: 150px;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
@@ -262,10 +331,10 @@ header {
   position: absolute;
   bottom: 0;
   width: 100%;
-  background-color: rgba(0, 0, 0, 0.6);
-  color: white;
+  background-image: linear-gradient( RGBA(255,255,255,0.3), rgb(255, 255, 255));
+  color: #2792A8;
   text-align: center;
-  font-size: 1.2rem;
+  font-size: 1rem;
   padding: 10px 0;
   font-weight: bold;
   border-bottom-left-radius: 8px;

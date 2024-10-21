@@ -9,6 +9,8 @@ import CreateAccountIcon  from '../assets/CreateAccount-icon.png';
 import DiscoverIcon  from '../assets/Discover-icon.png';
 import SmileyIcon  from '../assets/Smiley-icon.png';
 import Categories from '../components/Categories'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSearch} from '@fortawesome/free-solid-svg-icons';
 
 const images = [
   DiscoverYourNextAdventure,
@@ -21,7 +23,14 @@ const Home = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [slideClass, setSlideClass] = useState('slide-enter');
   const [isTransitioning, setIsTransitioning] = useState(false);
+  const [cityZip, setCityZip] = useState('');
+  const [date, setDate] = useState('');
+  const [searchQuery, setSearchQuery] = useState('');
   const navigate = useNavigate();
+
+  const handleSearchSubmit = (e) => {
+    e.preventDefault();
+  };
 
   const changeSlide = (n) => {
     if (isTransitioning) return;
@@ -63,7 +72,46 @@ const Home = () => {
 
   return (
     <>
+    <div className="search">
+        <form className="search-bar" onSubmit={handleSearchSubmit}>
 
+          <input
+            type="text"
+            placeholder="CITY/ZIP CODE"
+            className="search-city-zip-code-input"
+            value={cityZip}
+            onChange={(e) => setCityZip(e.target.value)}
+          />
+
+          <span className="divider">|</span>
+
+          <div className="date-container">
+
+            <input
+              type="date"
+              className="search-date-input"
+
+              placeholder="Date"
+              value={date}
+              onChange={(e) => setDate(e.target.value)}
+            />
+          </div>
+
+          <span className="divider">|</span>
+
+          <input
+            type="text"
+            placeholder="SEARCH BY EVENT, ACTIVITY, OR INTEREST"
+            className="search-input"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+          />
+
+          <button type="submit" className="search-button">
+            <FontAwesomeIcon icon={faSearch} />
+          </button>
+        </form>
+      </div>
     <div className="slideshow-container">
       <div className={`scroll-slides ${slideClass}`}>
         <img src={images[currentIndex]} alt={`Slide ${currentIndex + 1}`} />
@@ -87,7 +135,7 @@ const Home = () => {
 
     <div className="how-it-works">
         <div className="how-it-works-col">
-          <img onClick={() =>{navigate('/register')}} src={CreateAccountIcon} className="how-it-works-image" alt="profile-plus"></img>
+          <img onClick={() =>{navigate('/register')}} src={CreateAccountIcon} id="create-an-account" alt="profile-plus"></img>
           <h3>Create an Account</h3>
         </div>
         <div className="how-it-works-col">
